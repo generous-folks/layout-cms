@@ -1,6 +1,7 @@
 import React from 'react';
 import { push } from 'redux-first-history';
 import loadable from '@loadable/component';
+import _get from 'lodash/get';
 
 import Client from '../pages/client/client.connector';
 
@@ -8,7 +9,7 @@ export const renderClientsRoutes = ({ pages, modules }) =>
   Object.values(pages).map(page => {
     const { component, target, path, name } = page;
     const isHome = component === 'Home';
-    const isPageEnabled = modules[target].enabled || isHome;
+    const isPageEnabled = _get(modules, [target, 'enabled']) || isHome;
 
     return isPageEnabled ? <Client key={path} name={name} path={path} default={isHome} /> : null;
   });

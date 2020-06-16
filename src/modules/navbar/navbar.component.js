@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
+import _get from 'lodash/get';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -78,7 +79,7 @@ const NavBar = props => {
         </ListItem>
         {Object.values(pages).map(
           page =>
-            modules[page.target].enabled && (
+            _get(modules, [page.target, 'enabled']) && (
               <ListItem component={Link} to={page.path} button key={page.name}>
                 <ListItemIcon color="#fff">
                   <NavIcon dark={theme.isBlack} name={page.target} />
