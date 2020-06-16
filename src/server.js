@@ -29,7 +29,7 @@ server
         entrypoints: ['client'],
       });
 
-      const preloadedState = await preloadState();
+      const preloadedState = await preloadState(req.url);
       const { store } = configureStore(preloadedState, req.url);
       const finalState = store.getState();
 

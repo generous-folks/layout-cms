@@ -1,8 +1,10 @@
-import firebase from '@firebase/app';
-import '@firebase/functions';
-import '@firebase/database';
-import '@firebase/storage';
-import '@firebase/auth';
+import * as firebase from 'firebase/app';
+import 'firebase/functions';
+import 'firebase/database';
+import 'firebase/storage';
+import 'firebase/auth';
+
+import { isServer } from './ssr.utils';
 
 const config = {
   apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
@@ -16,7 +18,7 @@ const config = {
 
 firebase.initializeApp(config);
 
-export const database = firebase.database();
+export const database = !isServer() && firebase.database();
 export const storage = firebase.storage();
 export const auth = firebase.auth();
 
