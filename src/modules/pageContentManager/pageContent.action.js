@@ -6,12 +6,13 @@ export const GET_PAGE_CONTENT_SUCCESS = 'pageContent/GET_PAGE_CONTENT_SUCCESS';
 export const GET_PAGE_CONTENT_FAILURE = 'pageContent/GET_PAGE_CONTENT_FAILURE';
 
 export const getPageContent = (ref, lang) => async (dispatch, getState) => {
-  const currentPage = getCurrentPage(getState());
-  if (currentPage === ref) {
-    return;
-  }
-  dispatch({ type: GET_PAGE_CONTENT_BEGIN });
   try {
+    const currentPage = getCurrentPage(getState());
+    if (currentPage === ref) {
+      return;
+    }
+    dispatch({ type: GET_PAGE_CONTENT_BEGIN });
+
     const pageContent = await getData(`public/content/${lang}/${ref}`);
     dispatch({
       type: GET_PAGE_CONTENT_SUCCESS,
@@ -24,6 +25,5 @@ export const getPageContent = (ref, lang) => async (dispatch, getState) => {
       type: GET_PAGE_CONTENT_FAILURE,
       data: { error: e },
     });
-    throw new Error('Page content fetch failed');
   }
 };
