@@ -16,9 +16,13 @@ export const getComponent = (index, component, path, isAdmin, isTopLevel) => {
 };
 
 export const getTemplate = (components, path, isAdmin, isTopLevel) => {
-  return components
+  try {
+    return components
     ? Object.values(components).map((component, index) => getComponent(index, component, path, isAdmin, isTopLevel))
     : null;
+  } catch (error) {
+    throw new Error('Fuck this ' + error.message)
+  }
 };
 //replaceInDev(path, shortid.generate())
 export default function Layout({ content }) {

@@ -3,7 +3,7 @@ import { push } from 'redux-first-history';
 import loadable from '@loadable/component';
 import _get from 'lodash/get';
 
-import Client from '../pages/client/client.connector';
+import Client from '../pages/client/client.component';
 
 export const renderClientsRoutes = ({ pages, modules }) =>
   Object.values(pages).map(page => {

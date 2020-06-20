@@ -1,4 +1,4 @@
-import { getData } from '../../utils/firebase.utils';
+import { callApi } from '../../utils/firebase.utils';
 
 export const CONFIG_INIT_ADMIN = 'admin/CONFIG_INIT_ADMIN';
 export const CONFIG_INIT_ADMIN_SUCCESS = 'admin/CONFIG_INIT_ADMIN_SUCCESS';
@@ -9,7 +9,7 @@ export const INITIALIZE_ADMIN = 'amin/INITIALIZE_ADMIN';
 export const configInitAdmin = () => async dispatch => {
   dispatch({ type: CONFIG_INIT_ADMIN });
   try {
-    const config = await getData('private/config');
+    const config = await callApi('getConfig', { configType: 'private' });
     dispatch({
       type: CONFIG_INIT_ADMIN_SUCCESS,
       config,

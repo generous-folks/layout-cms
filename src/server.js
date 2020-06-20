@@ -16,6 +16,9 @@ import configureStore from './store/configureStore';
 import { createTheme, getStoredTheme } from './styles/theme';
 import { preloadState } from './store/preloadState';
 
+export { getPageContent } from './functions/onCall/getPageContent.function';
+export { getConfig } from './functions/onCall/getConfig.function';
+
 const server = express();
 
 server
@@ -91,7 +94,7 @@ server
           <head>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta charSet='utf-8' />
-            <title>Layout System</title>
+            <title>Chalet Les Deux Alpes</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
           </head>
           <body>
