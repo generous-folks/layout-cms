@@ -23,8 +23,9 @@ if (firebase.apps.length === 0) {
 export const database = !isServer() && firebase.database.length === 0 && firebase.database();
 export const storage = firebase.storage();
 export const auth = firebase.auth();
+const functions = firebase.app().functions('europe-west3');
 
-export const callApi = (method, body) => firebase.functions().httpsCallable(method)(body);
+export const callApi = (method, body) => functions.httpsCallable(method)(body);
 
 export const signOut = () => auth.signOut();
 export const signIn = ({ email, password }) =>

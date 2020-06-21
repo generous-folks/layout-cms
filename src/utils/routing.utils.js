@@ -22,7 +22,7 @@ export const renderAdminRoutes = ({ pages }) =>
     return enabled ? <Component key={path} name={name} path={path} /> : null;
   });
 
-export const importPageRoute = () => loadable(() => import(`../engine/template.engine`));
+export const importPageRoute = () => loadable(() => import(/* webpackChunkName: "template" */ `../engine/template.engine`));
 
 export const importAdminRoute = target => loadable(() => import(`../modules/admin/${target}/${target}.connector`));
 

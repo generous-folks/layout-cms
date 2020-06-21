@@ -4,13 +4,8 @@ import loadable from '@loadable/component';
 
 import shortid from 'shortid';
 
-// eslint-disable-next-line no-console
-console.log('REMOVE SHORTID GENERATE BEFORE MEP');
-
-// const replaceInDev = (prod, dev) => (process.env.NODE_ENV === 'production' ? prod : dev);
-
 export const getComponent = (index, component, path, isAdmin, isTopLevel) => {
-  const Component = loadable(() => import(`../lib/${component.target}.template`));
+  const Component = loadable(() => import(/* webpackChunkName: "template" */ `../lib/${component.target}.template`));
 
   return <Component key={`${component.id || shortid.generate()}`} path={path} isAdmin={isAdmin} isTopLevel={isTopLevel} {...component} />;
 };
