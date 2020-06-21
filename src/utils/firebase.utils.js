@@ -5,6 +5,7 @@ import 'firebase/storage';
 import 'firebase/auth';
 
 import { isServer } from './ssr.utils';
+import { staticConfig } from '../config';
 
 const config = {
   apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
@@ -23,7 +24,7 @@ if (firebase.apps.length === 0) {
 export const database = !isServer() && firebase.database.length === 0 && firebase.database();
 export const storage = firebase.storage();
 export const auth = firebase.auth();
-const functions = firebase.app().functions('europe-west3');
+const functions = firebase.app().functions(staticConfig.firebase.region);
 
 export const callApi = (method, body) => functions.httpsCallable(method)(body);
 

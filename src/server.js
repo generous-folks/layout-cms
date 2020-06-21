@@ -18,6 +18,8 @@ import { preloadState } from './store/preloadState';
 
 export { getPageContent } from './functions/onCall/getPageContent.function';
 export { getConfig } from './functions/onCall/getConfig.function';
+export { staticConfig } from './config';
+
 
 const server = express();
 
