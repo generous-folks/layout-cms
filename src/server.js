@@ -16,6 +16,11 @@ import configureStore from './store/configureStore';
 import { createTheme, getStoredTheme } from './styles/theme';
 import { preloadState } from './store/preloadState';
 
+export { getPageContent } from './functions/onCall/getPageContent.function';
+export { getConfig } from './functions/onCall/getConfig.function';
+export { staticConfig } from './config';
+
+
 const server = express();
 
 server
@@ -91,7 +96,7 @@ server
           <head>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta charSet='utf-8' />
-            <title>Layout System</title>
+            <title>Layout system</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
           </head>
           <body>

@@ -5,6 +5,7 @@ import 'firebase/storage';
 import 'firebase/auth';
 
 import { isServer } from './ssr.utils';
+import { staticConfig } from '../config';
 
 const config = {
   apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
@@ -16,13 +17,16 @@ const config = {
   appId: `${process.env.RAZZLE_SECRET_FIREBASE_APP_ID}`,
 };
 
-firebase.initializeApp(config);
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(config);
+}
 
-export const database = !isServer() && firebase.database();
+export const database = !isServer() && firebase.database.length === 0 && firebase.database();
 export const storage = firebase.storage();
 export const auth = firebase.auth();
+const functions = firebase.app().functions(staticConfig.firebase.region);
 
-export const callApi = (method, body) => firebase.functions().httpsCallable(method)(body);
+export const callApi = (method, body) => functions.httpsCallable(method)(body);
 
 export const signOut = () => auth.signOut();
 export const signIn = ({ email, password }) =>
@@ -43,57 +47,6 @@ export const deleteFile = ref => {
 };
 
 export const storageRef = ref => storage.ref(ref);
-
-export async function getData(ref) {
-  return database
-    .ref(ref)
-    .once('value')
-    .then(snapshot => snapshot.val());
-}
-
-export function getOrderedData(ref, child) {
-  return database
-    .ref(ref)
-    .orderByChild(child)
-    .once('value')
-    .then(snapshot => snapshot.val());
-}
-
-export const getOrderedDataEqual = (ref, child, value) =>
-  database
-    .ref(ref)
-    .orderByChild(child)
-    .equalTo(value)
-    .once('value')
-    .then(snapshot => snapshot.val());
-
-export const getRangedDataEqual = (ref, child, value, start, end) =>
-  database
-    .ref(ref)
-    .orderByChild(child)
-    .equalTo(value)
-    .startAt(start)
-    .endAt(end)
-    .once('value')
-    .then(snapshot => snapshot.val());
-
-export function getRangedData(ref, child, start, end) {
-  return database
-    .ref(ref)
-    .orderByChild(child)
-    .startAt(start)
-    .endAt(end)
-    .once('value')
-    .then(snapshot => snapshot.val());
-}
-
-export function getDataStream(ref, cb) {
-  return database.ref(ref).on('value', snapshot => cb(snapshot));
-}
-
-export function setData(ref, data) {
-  return database.ref(ref).update(data);
-}
 
 export const increment = (ref, number) =>
   database

@@ -1,22 +1,5 @@
-import * as admin from 'firebase-admin';
-
-import serviceAccount from '../../gsa_key.json';
-
-if (admin.apps.length === 0) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.RAZZLE_SECRET_FIREBASE_DB,
-  });
-}
-
-const getConfig = async () => {
-  const appConfig = await admin
-    .database()
-    .ref('public/config')
-    .once('value', snap => snap.val());
-
-  return appConfig.val();
-};
+import { getConfig } from '../functions/onCall/getConfig.function';
+import { getPageContent } from '../functions/onCall/getPageContent.function';
 
 const getContentTarget = ({ url, config }) => {
   const filteredPages = Object.values(config.pages).filter(page => page.path === url);
@@ -27,18 +10,23 @@ const getContentTarget = ({ url, config }) => {
   return 'home';
 };
 
-const getContent = async ({ config, url }) => {
-  const content = await admin
-    .database()
-    .ref(`public/content/en/${getContentTarget({ config, url })}`)
-    .once('value', snap => snap.val());
-
-  return content.val();
-};
 
 export const preloadState = async url => {
-  const config = await getConfig();
-  const content = await getContent({ config, url });
+  const config = await getConfig({ configType: 'public' });
+  const ref =  getContentTarget({ config, url });
+  const content = await getPageContent({ lang: 'en', ref });
 
-  return { config, pageContent: { content } };
+  return {
+    config,
+    pageContent: {
+      currentPage: ref,
+      pages: {
+        [ref]: {
+          content,
+          path: `public/content/en/${ref}`
+        }
+      }
+    }
+  };
 };
+

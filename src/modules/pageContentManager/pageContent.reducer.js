@@ -1,15 +1,17 @@
-import { GET_PAGE_CONTENT_BEGIN, GET_PAGE_CONTENT_FAILURE, GET_PAGE_CONTENT_SUCCESS } from './pageContent.action';
+import { GET_PAGE_CONTENT_BEGIN, GET_PAGE_CONTENT_FAILURE, GET_PAGE_CONTENT_SUCCESS, SET_PAGE_CONTENT, SET_CURRENT_PAGE } from './pageContent.action';
 
 const initialState = {
   getPageContentPending: false,
   getPageContentError: null,
-  content: null,
-  path: null,
-  page: null,
+  currentPage: null,
+  pages: {},
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case SET_CURRENT_PAGE:
+      return { ...state, currentPage: action.currentPage };
+
     case GET_PAGE_CONTENT_BEGIN:
       // Just after a request is sent
       return {
@@ -18,15 +20,22 @@ export default function reducer(state = initialState, action) {
         getPageContentError: null,
       };
 
+    case SET_PAGE_CONTENT:
     case GET_PAGE_CONTENT_SUCCESS:
       // The request is success
       return {
         ...state,
         getPageContentPending: false,
         getPageContentError: null,
-        content: { ...action.data },
-        path: action.path,
-        page: action.page,
+        currentPage: action.page,
+        pages: {
+          ...state.pages,
+          [action.page]: {
+            content: { ...action.data },
+            path: action.path,
+            page: action.page,
+          }
+        },
       };
 
     case GET_PAGE_CONTENT_FAILURE:

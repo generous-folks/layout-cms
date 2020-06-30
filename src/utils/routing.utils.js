@@ -3,7 +3,7 @@ import { push } from 'redux-first-history';
 import loadable from '@loadable/component';
 import _get from 'lodash/get';
 
-import Client from '../pages/client/client.connector';
+import Client from '../pages/client/client.component';
 
 export const renderClientsRoutes = ({ pages, modules }) =>
   Object.values(pages).map(page => {
@@ -22,7 +22,7 @@ export const renderAdminRoutes = ({ pages }) =>
     return enabled ? <Component key={path} name={name} path={path} /> : null;
   });
 
-export const importPageRoute = () => loadable(() => import(`../engine/template.engine`));
+export const importPageRoute = () => loadable(() => import(/* webpackChunkName: "template" */ `../engine/template.engine`));
 
 export const importAdminRoute = target => loadable(() => import(`../modules/admin/${target}/${target}.connector`));
 
