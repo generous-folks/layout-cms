@@ -10,6 +10,7 @@ if (firebaseAdmin.apps.length === 0) {
   });
 }
 
+export const admin = firebaseAdmin;
 export const db = firebaseAdmin.database();
 export const dbGet = ref => db.ref(ref)
   .once('value', snap => snap.val())
