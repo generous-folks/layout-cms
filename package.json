@@ -33,7 +33,7 @@
     "firebase-functions": "3.7.0",
     "history": "4.9.0",
     "intersection-observer": "0.10.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "lozad": "1.15.0",
     "prop-types": "15.7.2",
     "razzle": "3.1.3",
