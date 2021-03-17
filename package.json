@@ -2,6 +2,12 @@
   "name": "layout-system",
   "version": "0.1.0",
   "license": "MIT",
+  "keywords": [
+    "react cms",
+    "react website generator",
+    "Cloud Functions SSR",
+    "Razzle Cloud Functions"
+  ],
   "scripts": {
     "dev": "razzle start",
     "start": "razzle start",
