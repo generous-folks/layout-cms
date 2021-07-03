@@ -8,14 +8,6 @@ module.exports = {
   modifyWebpackConfig: opts => {
     const config = opts.webpackConfig;
 
-    config.optimization = Object.assign({}, config.optimization, {
-      runtimeChunk: true,
-      splitChunks: {
-        chunks: 'all',
-        name: dev,
-      },
-    });
-
     if (opts.env.target === 'node' && !opts.env.dev) {
       config.entry = path.resolve(__dirname, './src/server.js');
       config.output.filename = config.mode.includes('dev')
@@ -34,6 +26,14 @@ module.exports = {
           writeToDisk: { filename },
         }),
       ];
+
+      config.optimization = Object.assign({}, config.optimization, {
+        runtimeChunk: true,
+        splitChunks: {
+          chunks: 'all',
+          name: config.mode.includes('dev'),
+        },
+      });
     }
 
     return config;
