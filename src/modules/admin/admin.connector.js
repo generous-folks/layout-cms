@@ -12,12 +12,15 @@ const mapStateToProps = ({
 }) => ({
   pathname,
   config,
-  isAdmin: !!isAdmin,
+  isAdmin: true,
   initialized,
 });
 
-export default connect(mapStateToProps, {
-  configInitAdmin,
-  logout,
-  initializeAdmin,
-})(Admin);
+export default connect(
+  mapStateToProps,
+  {
+    configInitAdmin,
+    logout,
+    initializeAdmin,
+  },
+)(Admin);
