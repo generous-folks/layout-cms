@@ -18,6 +18,9 @@ module.exports = {
         }),
       ];
 
+      config.node = { fs: 'empty' };
+      config.output.filename = opts.env.dev ? 'static/js/[name].js' : 'static/js/[name].[chunkhash:8].js';
+
       config.optimization = Object.assign({}, config.optimization, {
         runtimeChunk: true,
         splitChunks: {
@@ -29,7 +32,7 @@ module.exports = {
 
     if (opts.env.target === 'node' && !opts.env.dev) {
       config.entry = path.resolve(__dirname, './src/server.js');
-      config.output.filename = opts.env.dev ? 'static/js/[name].js' : 'static/js/[name].[chunkhash:8].js';
+      config.output.filename = 'server.bundle.js';
       config.output.path = path.resolve(__dirname, './build');
       config.output.libraryTarget = 'commonjs2';
     }
