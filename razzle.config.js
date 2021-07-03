@@ -5,10 +5,43 @@ const LoadableBabelPlugin = require('@loadable/babel-plugin');
 const babelPresetRazzle = require('razzle/babel');
 
 module.exports = {
-  modify: (config, { dev, target }) => {
+  modifyWebpackConfig: opts => {
+    const config = opts.webpackConfig;
+
+    config.optimization = Object.assign({}, config.optimization, {
+      runtimeChunk: true,
+      splitChunks: {
+        chunks: 'all',
+        name: dev,
+      },
+    });
+
+    if (opts.env.target === 'node' && !opts.env.dev) {
+      config.entry = path.resolve(__dirname, './src/server.js');
+      config.output.filename = config.mode.includes('dev')
+        ? 'static/js/[name].js'
+        : 'static/js/[name].[chunkhash:8].js';
+      config.output.path = path.resolve(__dirname, './build');
+      config.output.libraryTarget = 'commonjs2';
+    }
+
+    if (opts.env.target === 'web') {
+      const filename = path.resolve(__dirname, 'build');
+      config.plugins = [
+        ...config.plugins,
+        new LoadableWebpackPlugin({
+          outputAsset: false,
+          writeToDisk: { filename },
+        }),
+      ];
+    }
+
+    return config;
+    /*
+    console.log(JSON.stringify(config, null, 2));
     const appConfig = Object.assign({}, config);
 
-    if (target === 'web') {
+    if (appConfig.target === 'web') {
       const filename = path.resolve(__dirname, 'build');
 
       appConfig.plugins = [
@@ -40,6 +73,7 @@ module.exports = {
     }
 
     return appConfig;
+    */
   },
 
   modifyBabelOptions: () => ({

@@ -19,4 +19,7 @@ const mapStateToProps = ({
   isUser: !pathname.includes('admin'),
 });
 
-export default connect(mapStateToProps, { toggle: toggleNavbar })(renderOrNothing(({ isUser }) => isUser, Navbar));
+export default connect(
+  mapStateToProps,
+  { toggle: toggleNavbar },
+)(renderOrNothing(({ isUser }) => isUser, Navbar));
