@@ -12,7 +12,7 @@ const mapStateToProps = ({
 }) => ({
   pathname,
   config,
-  isAdmin: true,
+  isAdmin: !!isAdmin,
   initialized,
 });
 
