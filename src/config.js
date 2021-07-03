@@ -1,6 +1,6 @@
 export const staticConfig = {
   firebase: {
-    region: "us-central1"
+    region: 'europe-west2',
   },
-  title: 'Site Title'
+  title: 'Site Title',
 };
