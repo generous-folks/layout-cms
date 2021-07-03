@@ -1,10 +1,7 @@
 import { dbGet } from '../../admin';
 
-export const getConfig = async (data, context) => {
+export const getConfig = async data => {
   const { configType } = data;
 
-  // eslint-disable-next-line no-console
-  console.error({ context });
   return dbGet(`${configType}/config`);
 };
-

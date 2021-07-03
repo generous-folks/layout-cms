@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 
 server.listen(port, error => {
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 
   console.log(`🚀 started on http://localhost:${port}`);

@@ -12,9 +12,11 @@ if (firebaseAdmin.apps.length === 0) {
 
 export const admin = firebaseAdmin;
 export const db = firebaseAdmin.database();
-export const dbGet = ref => db.ref(ref)
-  .once('value', snap => snap.val())
-  .then(content => content.val())
-  .catch(err => console.log(err));
+export const dbGet = ref =>
+  db
+    .ref(ref)
+    .once('value', snap => snap.val())
+    .then(content => content.val())
+    .catch(err => console.error(err));
 
-  // export const increment = db.ref('').transaction
+// export const increment = db.ref('').transaction

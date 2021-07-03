@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/functions';
 import 'firebase/database';
 import 'firebase/storage';
@@ -52,7 +52,7 @@ export const increment = (ref, number) =>
   database
     .ref(ref)
     .transaction(currentCount => (currentCount ? parseInt(currentCount, 10) + parseInt(number, 10) : number))
-    .catch(err => console.log(err)); // eslint-disable-line no-console
+    .catch(err => console.error(`Increment transaction error: ${JSON.stringify(err, null, 2)}`)); // eslint-disable-line no-console
 
 export function getNewKey(ref) {
   return database.ref(ref).push().key;

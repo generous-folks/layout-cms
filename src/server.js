@@ -16,10 +16,15 @@ import configureStore from './store/configureStore';
 import { createTheme, getStoredTheme } from './styles/theme';
 import { preloadState } from './store/preloadState';
 
+/*
+##################################
+### Export API Cloud Functions ###
+##################################
+*/
 export { getPageContent } from './functions/onCall/getPageContent.function';
 export { getConfig } from './functions/onCall/getConfig.function';
-export { staticConfig } from './config';
 
+export { staticConfig } from './config';
 
 const server = express();
 
