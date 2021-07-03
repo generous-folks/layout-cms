@@ -1,7 +1,7 @@
 import { CONFIG_INIT_ADMIN_SUCCESS, INITIALIZE_ADMIN } from './admin.action';
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from '../auth/auth.action';
 
-const initialState = { config: null, initialized: false, isAdmin: true };
+const initialState = { config: null, initialized: false, isAdmin: false };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

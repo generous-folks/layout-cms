@@ -7,7 +7,7 @@ import 'firebase/auth';
 import { isServer } from './ssr.utils';
 import { staticConfig } from '../config';
 
-const config = {
+let config = {
   apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
   authDomain: `${process.env.RAZZLE_SECRET_FIREBASE_DOMAIN}`,
   databaseURL: `${process.env.RAZZLE_SECRET_FIREBASE_DB}`,
@@ -16,6 +16,14 @@ const config = {
   messagingSenderId: `${process.env.RAZZLE_SECRET_FIREBASE_MESSAGING}`,
   appId: `${process.env.RAZZLE_SECRET_FIREBASE_APP_ID}`,
 };
+
+if (!isServer() && window.location.hostname === 'localhost') {
+  config = {
+    apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
+    databaseURL: 'http://localhost:9001/?ns=layout-system',
+    projectId: `${process.env.RAZZLE_SECRET_FIREBASE_ID}`,
+  };
+}
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(config);
