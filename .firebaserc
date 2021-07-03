@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "layout-system"
+    "default": "layout-system",
+    "staging": "layout-system-staging"
   }
 }

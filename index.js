@@ -1,5 +1,7 @@
 'use strict';
 const functions = require('firebase-functions');
+
+// All the following are exported from ./src/server.js
 const app = require('./build/server.bundle').default;
 const getPageContent = require('./build/server.bundle').getPageContent;
 const getConfig = require('./build/server.bundle').getConfig;

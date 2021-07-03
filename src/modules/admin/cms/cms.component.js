@@ -57,7 +57,7 @@ const CMS = props => {
                           onChange={toggleControls}
                           value="showControls"
                           inputProps={{ 'aria-label': 'secondary checkbox' }}
-                        ></Switch>
+                        />
                       }
                       label="Show Controls"
                     />
@@ -78,7 +78,7 @@ const CMS = props => {
     );
   } catch (error) {
     /* eslint-disable no-console */
-    console.log('cms error', error);
+    console.error('cms error', error);
     return null;
   }
 };
