@@ -5,41 +5,36 @@ const LoadableBabelPlugin = require('@loadable/babel-plugin');
 const babelPresetRazzle = require('razzle/babel');
 
 module.exports = {
-  modify: (config, { dev, target }) => {
-    const appConfig = Object.assign({}, config);
+  modifyWebpackConfig: opts => {
+    const config = opts.webpackConfig;
 
-    if (target === 'web') {
+    if (opts.env.target === 'web') {
       const filename = path.resolve(__dirname, 'build');
-
-      appConfig.plugins = [
-        ...appConfig.plugins,
+      config.plugins = [
+        ...config.plugins,
         new LoadableWebpackPlugin({
           outputAsset: false,
           writeToDisk: { filename },
         }),
       ];
 
-      appConfig.output.filename = dev ? 'static/js/[name].js' : 'static/js/[name].[chunkhash:8].js';
-
-      appConfig.node = { fs: 'empty' }; // fix "Cannot find module 'fs'" problem.
-
-      appConfig.optimization = Object.assign({}, appConfig.optimization, {
+      config.optimization = Object.assign({}, config.optimization, {
         runtimeChunk: true,
         splitChunks: {
           chunks: 'all',
-          name: dev,
+          name: opts.env.dev,
         },
       });
     }
 
-    if (target === 'node' && !dev) {
-      appConfig.entry = path.resolve(__dirname, './src/server.js');
-      appConfig.output.filename = 'server.bundle.js';
-      appConfig.output.path = path.resolve(__dirname, './build');
-      appConfig.output.libraryTarget = 'commonjs2';
+    if (opts.env.target === 'node' && !opts.env.dev) {
+      config.entry = path.resolve(__dirname, './src/server.js');
+      config.output.filename = opts.env.dev ? 'static/js/[name].js' : 'static/js/[name].[chunkhash:8].js';
+      config.output.path = path.resolve(__dirname, './build');
+      config.output.libraryTarget = 'commonjs2';
     }
 
-    return appConfig;
+    return config;
   },
 
   modifyBabelOptions: () => ({
