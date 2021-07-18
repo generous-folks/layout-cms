@@ -14,7 +14,7 @@
     "build": "razzle build",
     "test": "razzle test --env=jsdom",
     "emulate": "export FIREBASE_DATABASE_EMULATOR_HOST=\"localhost:9001\" && yarn firebase emulators:start --import=./data",
-    "dev:mock": "yarn dev && yarn emulate",
+    "dev:mock": "run-p emulate dev",
     "start:mock": "yarn build && yarn emulate",
     "start:prod": "NODE_ENV=production node build/server.bundle.js",
     "deploy": "yarn build && firebase deploy"
@@ -67,7 +67,9 @@
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-react": "7.12.3",
+    "eslint-plugin-react-hooks": "4.2.0",
     "firebase-tools": "9.14.0",
+    "npm-run-all": "4.1.5",
     "prettier": "1.15.3",
     "prettier-eslint": "8.8.2"
   },

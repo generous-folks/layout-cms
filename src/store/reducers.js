@@ -6,6 +6,7 @@ import toaster from '../modules/toaster/toaster.reducer';
 import cms from '../modules/admin/cms/cms.reducer';
 import pageContent from '../modules/pageContentManager/pageContent.reducer';
 import lang from '../modules/lang/lang.reducer';
+import splash from '../modules/splash/splash.reducer';
 
 const applyRootReducer = (reducers = {}) =>
   combineReducers({
@@ -16,6 +17,7 @@ const applyRootReducer = (reducers = {}) =>
     admin,
     toaster,
     cms,
+    splash,
     ...reducers,
   });
 
