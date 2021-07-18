@@ -4,13 +4,7 @@
   },
   "hosting": {
     "public": "build/public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**.js.map",
-      "*.js.map",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**.js.map", "*.js.map", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**/**",
@@ -27,6 +21,7 @@
       "**/public/**",
       "**.js.map",
       "*.js.map",
+      "./data/**",
       "**.md",
       "Dockerfile",
       "LICENSE",

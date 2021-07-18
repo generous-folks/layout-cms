@@ -1,7 +1,10 @@
 import { LOCATION_CHANGE } from 'redux-first-history';
-
+import _get from 'lodash/get';
 import { getPageContent } from '../modules/pageContentManager/pageContent.action';
 import { CHANGE_LANG } from '../modules/lang/lang.actions';
+import { getConfigPages } from '../modules/config/config.selectors';
+import { getCurrentLang } from '../modules/lang/lang.selectors';
+import { getPathname } from '../modules/router/router.selectors';
 
 const getContentForRoute = (pages, pathname, lang) => dispatch => {
   if (pathname === '/') {
@@ -17,19 +20,20 @@ const getContentForRoute = (pages, pathname, lang) => dispatch => {
   dispatch(getPageContent(pageItem.target, lang));
 };
 
-export default store => next => action => {
-  const {
-    router: { location },
-    lang: { currentLang },
-    config: { pages },
-  } = store.getState();
+export default ({ dispatch, getState }) => next => action => {
+  const state = getState();
+
   next(action);
+  const pages = getConfigPages(state);
+  const currentLang = getCurrentLang(state);
+  const pathname = getPathname(state);
+
   switch (action.type) {
     case CHANGE_LANG:
-      store.dispatch(getContentForRoute(pages, location.pathname, action.lang));
+      dispatch(getContentForRoute(pages, pathname, action.lang));
       break;
     case LOCATION_CHANGE:
-      store.dispatch(getContentForRoute(pages, action.payload.location.pathname, currentLang));
+      dispatch(getContentForRoute(pages, _get(action, 'payload.location.pathname'), currentLang));
       break;
     default:
       break;

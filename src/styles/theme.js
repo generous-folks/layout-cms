@@ -2,18 +2,12 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
 
-export const getStoredTheme = ({
-  config: {
-    modules: { theme },
-  },
-}) => theme;
-
 export const createTheme = theme => {
   return createMuiTheme({
     ...theme,
     typography: { useNextVariants: true },
     palette: {
-      type: theme.palette.type,
+      type: theme?.palette?.type,
       secondary: {
         main: '#0a0a0a',
         light: '#0a0a0a',
@@ -92,21 +86,21 @@ export const createTheme = theme => {
       MuiCardHeader: {
         root: {
           margin: 0,
-          background: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : '#0a0a0a', // theme.palette.primary.main,
-          color: theme.palette.type === 'light' ? '#0a0a0a' : 'rgba(255, 255, 255, 0.87)',
+          background: theme?.palette?.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : '#0a0a0a', // theme.palette.primary.main,
+          color: theme?.palette?.type === 'light' ? '#0a0a0a' : 'rgba(255, 255, 255, 0.87)',
         },
         title: {
-          color: theme.palette.type === 'light' ? '#0a0a0a' : 'rgba(255, 255, 255, 0.87)',
+          color: theme?.palette?.type === 'light' ? '#0a0a0a' : 'rgba(255, 255, 255, 0.87)',
         },
       },
       MuiSvgIcon: {
         colorSecondary: {
-          color: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
+          color: theme?.palette?.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
         },
       },
       MuiFormLabel: {
         root: {
-          color: theme.palette.type === 'light' ? 'rgba(0,0,0,0.3)' : 'rgba(255, 255, 255, 0.7)',
+          color: theme?.palette?.type === 'light' ? 'rgba(0,0,0,0.3)' : 'rgba(255, 255, 255, 0.7)',
         },
       },
     },
@@ -194,15 +188,15 @@ export const createTheme = theme => {
 //     root: {
 //       margin: 0,
 //       background: theme.palette.primary.main,
-//       color: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
+//       color: theme?.palette?.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
 //     },
 //     title: {
-//       color: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
+//       color: theme?.palette?.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
 //     },
 //   },
 //   MuiSvgIcon: {
 //     colorSecondary: {
-//       color: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
+//       color: theme?.palette?.type === 'light' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)',
 //     },
 //   },
 //   MuiFormLabel: {

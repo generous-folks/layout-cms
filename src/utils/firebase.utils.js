@@ -34,6 +34,12 @@ export const storage = firebase.storage();
 export const auth = firebase.auth();
 const functions = firebase.app().functions(staticConfig.firebase.region);
 
+if (!isServer() && window.location.hostname === 'localhost') {
+  // Point to the RTDB emulator running on localhost.
+  database && database.useEmulator('localhost', 9001);
+  firebase.functions().useEmulator('localhost', 5001);
+}
+
 export const callApi = (method, body) => functions.httpsCallable(method)(body);
 
 export const signOut = () => auth.signOut();

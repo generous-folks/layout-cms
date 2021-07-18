@@ -2,7 +2,7 @@ import { getConfig } from '../functions/onCall/getConfig.function';
 import { getPageContent } from '../functions/onCall/getPageContent.function';
 
 const getContentTarget = ({ url, config }) => {
-  const filteredPages = Object.values(config.pages).filter(page => page.path === url);
+  const filteredPages = config ? Object.values(config.pages).filter(page => page.path === url) : [];
   if (filteredPages[0]) {
     return filteredPages[0].target;
   }

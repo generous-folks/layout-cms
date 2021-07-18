@@ -11,9 +11,7 @@ const createHistory = pathname =>
   isServer() ? createMemoryHistory({ initialEntries: [pathname] }) : createBrowserHistory();
 
 const composeEnhancers =
-  !isServer() && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && process.env.NODE_ENV === 'development'
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : compose;
+  !isServer() && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
 const configureStore = (preloadedState, pathname) => {
   const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({

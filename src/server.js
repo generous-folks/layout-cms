@@ -13,8 +13,9 @@ import compression from 'compression';
 
 import App from './App';
 import configureStore from './store/configureStore';
-import { createTheme, getStoredTheme } from './styles/theme';
+import { createTheme } from './styles/theme';
 import { preloadState } from './store/preloadState';
+import { getConfigTheme } from './modules/config/config.selectors';
 
 /*
 ##################################
@@ -51,7 +52,7 @@ server
             <ChunkExtractorManager extractor={extractor}>
               <ServerLocation url={req.url}>
                 <Provider store={store}>
-                  <ThemeProvider theme={createTheme(getStoredTheme(finalState))}>
+                  <ThemeProvider theme={createTheme(getConfigTheme(finalState))}>
                     <App />
                   </ThemeProvider>
                 </Provider>

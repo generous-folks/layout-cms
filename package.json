@@ -13,6 +13,9 @@
     "start": "razzle start",
     "build": "razzle build",
     "test": "razzle test --env=jsdom",
+    "emulate": "export FIREBASE_DATABASE_EMULATOR_HOST=\"localhost:9001\" && yarn firebase emulators:start --import=./data",
+    "dev:mock": "yarn dev && yarn emulate",
+    "start:mock": "yarn build && yarn emulate",
     "start:prod": "NODE_ENV=production node build/server.bundle.js",
     "deploy": "yarn build && firebase deploy"
   },
