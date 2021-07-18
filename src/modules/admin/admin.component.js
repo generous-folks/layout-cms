@@ -13,7 +13,7 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 import { renderAdminRoutes } from '../../utils/routing.utils';
 
 import Toaster from '../toaster/toast.connector';
-import DrawerComponent from './nav/navbar.connector';
+import NavBar from './nav/navbar.connector';
 import Login from '../auth/login.connector';
 
 const drawerWidth = 240;
@@ -41,15 +41,18 @@ const AdminRoutes = props => {
 
   const { isAdmin, initialized, configInitAdmin, initializeAdmin, config, pathname } = props;
 
-  useEffect(() => {
-    if (isAdmin && !config) {
-      configInitAdmin();
-    }
+  useEffect(
+    () => {
+      if (isAdmin && !config) {
+        configInitAdmin();
+      }
 
-    if (!initialized && isAdmin && config) {
-      initializeAdmin();
-    }
-  }, [isAdmin, initialized, configInitAdmin, initializeAdmin, config]);
+      if (!initialized && isAdmin && config) {
+        initializeAdmin();
+      }
+    },
+    [isAdmin, initialized, configInitAdmin, initializeAdmin, config],
+  );
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
@@ -86,14 +89,9 @@ const AdminRoutes = props => {
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <DrawerComponent
-              pages={config.pages}
-              desktopOpen={desktopOpen}
-              mobileOpen={mobileOpen}
-              toggle={handleDrawerToggle}
-            >
+            <NavBar pages={config.pages} desktopOpen={desktopOpen} mobileOpen={mobileOpen} toggle={handleDrawerToggle}>
               {initialized && renderAdminRoutes(config)}
-            </DrawerComponent>
+            </NavBar>
           </div>
         )
       ) : (

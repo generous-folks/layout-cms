@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
+import _values from 'lodash/values';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -33,11 +35,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavBar = props => {
+const NavBar = ({ pages, pathname, toggle, desktopOpen, mobileOpen, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
-  const { pages, pathname } = props;
   if (!pages) {
     return null;
   }
@@ -48,7 +49,7 @@ const NavBar = props => {
         <ListItem selected={pathname === `/admin/`} component={Link} to="/admin/" button key="dashboard">
           <ListItemText primary="DASHBOARD" />
         </ListItem>
-        {Object.values(pages).map(page => (
+        {_values(pages).map(page => (
           <ListItem component={Link} to={page.path} selected={pathname === page.path} button key={page.name}>
             <ListItemText primary={page.name} />
           </ListItem>
@@ -65,34 +66,33 @@ const NavBar = props => {
           <Drawer
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={props.mobileOpen}
-            onClose={props.toggle}
+            open={mobileOpen}
+            onClose={toggle}
             classes={{ paper: classes.drawerPaper }}
             ModalProps={{ keepMounted: true }}
           >
             {drawer}
           </Drawer>
         </Hidden>
-        {props.desktopOpen && (
+        {desktopOpen && (
           <Hidden xsDown implementation="css">
             <Drawer
               classes={{ paper: classes.drawerPaper }}
-              variant={props.desktopOpen ? 'permanent' : 'temporary'}
-              open={props.desktopOpen}
+              variant={desktopOpen ? 'permanent' : 'temporary'}
+              open={desktopOpen}
             >
               {drawer}
             </Drawer>
           </Hidden>
         )}
       </nav>
-      <main className={props.desktopOpen ? classes.content : {}}>{props.children}</main>
+      <main className={desktopOpen ? classes.content : {}}>{children}</main>
     </div>
   );
 };
 
 NavBar.defaultProps = { children: null };
 NavBar.propTypes = {
-  // theme: PropTypes.shape({}).isRequired,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array, PropTypes.node]),
   mobileOpen: PropTypes.bool.isRequired,
   desktopOpen: PropTypes.bool.isRequired,

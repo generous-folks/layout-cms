@@ -9,10 +9,10 @@ export const INITIALIZE_ADMIN = 'amin/INITIALIZE_ADMIN';
 export const configInitAdmin = () => async dispatch => {
   dispatch({ type: CONFIG_INIT_ADMIN });
   try {
-    const config = await callApi('getConfig', { configType: 'private' });
+    const { data } = await callApi('getConfig', { configType: 'private' });
     dispatch({
       type: CONFIG_INIT_ADMIN_SUCCESS,
-      config,
+      config: data,
     });
   } catch (err) {
     dispatch({ type: CONFIG_INIT_ADMIN_FAILURE, ...err });
