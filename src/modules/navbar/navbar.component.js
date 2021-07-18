@@ -18,7 +18,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
-
 import logo from '../../logo.svg';
 import NavIcon from './navicon.component';
 
@@ -28,20 +27,20 @@ const useStyles = makeStyles(theme => ({
   root: { display: 'flex' },
   drawer: {
     [theme.breakpoints.up('sm')]: {
-      width: theme.navbar.desktop ? drawerWidth : 0,
+      width: _get(theme, 'navbar.desktop') ? drawerWidth : 0,
       flexShrink: 0,
     },
   },
   appBar: {
     marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
-      width: theme.navbar.desktop ? `calc(100% - ${drawerWidth}px)` : '100%',
-      display: theme.navbar.desktop ? 'none' : 'initial',
+      width: _get(theme, 'navbar.desktop') ? `calc(100% - ${drawerWidth}px)` : '100%',
+      display: _get(theme, 'navbar.desktop') ? 'none' : 'initial',
     },
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up('sm')]: { display: theme.navbar.desktop ? 'none' : 'initial' },
+    [theme.breakpoints.up('sm')]: { display: _get(theme, 'navbar.desktop') ? 'none' : 'initial' },
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -52,7 +51,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     marginTop: theme.mixins.toolbar.minHeight + 20,
 
-    [theme.breakpoints.up('sm')]: { marginTop: theme.navbar.desktop ? 0 : theme.mixins.toolbar.minHeight - 20 },
+    [theme.breakpoints.up('sm')]: {
+      marginTop: _get(theme, 'navbar.desktop') ? 0 : theme.mixins.toolbar.minHeight - 20,
+    },
   },
   divider: {
     marginTop: '5%',
@@ -116,7 +117,7 @@ const NavBar = props => {
             {drawer}
           </Drawer>
         </Hidden>
-        {theme.navbar.desktop && (
+        {_get(theme, 'navbar.desktop') && (
           <Hidden xsDown implementation="css">
             <Drawer
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}

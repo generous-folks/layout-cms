@@ -2,7 +2,7 @@ import { getConfig } from '../functions/onCall/getConfig.function';
 import { getPageContent } from '../functions/onCall/getPageContent.function';
 
 const getContentTarget = ({ url, config }) => {
-  const filteredPages = Object.values(config.pages).filter(page => page.path === url);
+  const filteredPages = config ? Object.values(config.pages).filter(page => page.path === url) : [];
   if (filteredPages[0]) {
     return filteredPages[0].target;
   }
@@ -10,10 +10,9 @@ const getContentTarget = ({ url, config }) => {
   return 'home';
 };
 
-
 export const preloadState = async url => {
   const config = await getConfig({ configType: 'public' });
-  const ref =  getContentTarget({ config, url });
+  const ref = getContentTarget({ config, url });
   const content = await getPageContent({ lang: 'en', ref });
 
   return {
@@ -23,10 +22,9 @@ export const preloadState = async url => {
       pages: {
         [ref]: {
           content,
-          path: `public/content/en/${ref}`
-        }
-      }
-    }
+          path: `public/content/en/${ref}`,
+        },
+      },
+    },
   };
 };
-

@@ -7,7 +7,7 @@ import 'firebase/auth';
 import { isServer } from './ssr.utils';
 import { staticConfig } from '../config';
 
-const config = {
+let config = {
   apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
   authDomain: `${process.env.RAZZLE_SECRET_FIREBASE_DOMAIN}`,
   databaseURL: `${process.env.RAZZLE_SECRET_FIREBASE_DB}`,
@@ -17,6 +17,14 @@ const config = {
   appId: `${process.env.RAZZLE_SECRET_FIREBASE_APP_ID}`,
 };
 
+if (!isServer() && window.location.hostname === 'localhost') {
+  config = {
+    apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
+    databaseURL: 'http://localhost:9001/?ns=layout-system',
+    projectId: `${process.env.RAZZLE_SECRET_FIREBASE_ID}`,
+  };
+}
+
 if (firebase.apps.length === 0) {
   firebase.initializeApp(config);
 }
@@ -25,6 +33,12 @@ export const database = !isServer() && firebase.database.length === 0 && firebas
 export const storage = firebase.storage();
 export const auth = firebase.auth();
 const functions = firebase.app().functions(staticConfig.firebase.region);
+
+if (!isServer() && window.location.hostname === 'localhost') {
+  // Point to the RTDB emulator running on localhost.
+  database && database.useEmulator('localhost', 9001);
+  firebase.functions().useEmulator('localhost', 5001);
+}
 
 export const callApi = (method, body) => functions.httpsCallable(method)(body);
 

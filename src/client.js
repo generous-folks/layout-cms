@@ -10,11 +10,12 @@ import configureStore from './store/configureStore';
 
 import App from './App';
 import { init } from './modules/app/app.action';
-import { createTheme, getStoredTheme } from './styles/theme';
+import { createTheme } from './styles/theme';
+import { getConfigTheme } from './modules/config/config.selectors';
 
 const root = document.getElementById('root');
 const { store, history } = configureStore(window.__PRELOADED_STATE__);
-const theme = createTheme(getStoredTheme(store.getState()));
+const theme = createTheme(getConfigTheme(store.getState()));
 
 store.dispatch(init());
 
