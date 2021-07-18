@@ -6,6 +6,7 @@ import 'firebase/auth';
 
 import { isServer } from './ssr.utils';
 import { staticConfig } from '../config';
+import { requestHost } from './host.service';
 
 let config = {
   apiKey: `${process.env.RAZZLE_SECRET_FIREBASE_APIKEY}`,
@@ -37,8 +38,9 @@ const functions = firebase.app().functions(staticConfig.firebase.region);
 if (!isServer() && window.location.hostname === 'localhost') {
   // Point to the RTDB emulator running on localhost.
   database && database.useEmulator('localhost', 9001);
-  firebase.functions().useEmulator('localhost', 5001);
 }
+
+if (requestHost.hostname === 'localhost') functions.useEmulator('localhost', 5001);
 
 export const callApi = (method, body) => functions.httpsCallable(method)(body);
 

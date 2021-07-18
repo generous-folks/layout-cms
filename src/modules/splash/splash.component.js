@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import _get from 'lodash/get';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
 
 import SVG from '../../components/svg.component';
 import logo from '../../logo.svg';
+import { useSelector } from 'react-redux';
+import { getSplash } from './splash.selectors';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: theme.splash.enabled ? 'initial' : 'none',
+    display: _get(theme, 'splash.enabled') ? 'initial' : 'none',
     position: 'absolute',
     top: '0px',
     left: '0px',
@@ -29,9 +32,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Splash = props => {
+const Splash = () => {
   const classes = useStyles(useTheme());
-  const { splash } = props;
+  const splash = useSelector(getSplash);
 
   return (
     <div className={classNames(classes.container, splash ? classes.visible : classes.hidden)}>
@@ -42,10 +45,6 @@ const Splash = props => {
 
 Splash.propTypes = {
   splash: PropTypes.bool.isRequired,
-  splashed: PropTypes.bool.isRequired,
-  showSplash: PropTypes.func.isRequired,
-
-  modules: PropTypes.shape({}).isRequired,
 };
 
 export default Splash;

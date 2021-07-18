@@ -1,8 +1,6 @@
 import { TOGGLE_NAVBAR, INIT } from './app.action';
 
 const initialState = {
-  splash: false,
-  splashed: false,
   mobileOpen: false,
   initialized: false,
 };

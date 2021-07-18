@@ -16,6 +16,7 @@ import configureStore from './store/configureStore';
 import { createTheme } from './styles/theme';
 import { preloadState } from './store/preloadState';
 import { getConfigTheme } from './modules/config/config.selectors';
+import { requestHost } from './utils/host.service';
 
 /*
 ##################################
@@ -39,6 +40,8 @@ server
         statsFile: path.resolve('build/loadable-stats.json'),
         entrypoints: ['client'],
       });
+
+      requestHost.setHostname(req.hostname);
 
       const preloadedState = await preloadState(req.url);
       const { store } = configureStore(preloadedState, req.url);
