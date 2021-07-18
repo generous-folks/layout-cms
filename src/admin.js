@@ -2,6 +2,7 @@
 import * as firebaseAdmin from 'firebase-admin';
 
 import serviceAccount from '../gsa_key.json';
+import { requestHost } from './utils/host.service';
 
 if (firebaseAdmin.apps.length === 0) {
   firebaseAdmin.initializeApp({
@@ -12,6 +13,9 @@ if (firebaseAdmin.apps.length === 0) {
 
 export const admin = firebaseAdmin;
 export const db = firebaseAdmin.database();
+
+if (requestHost.hostname === 'localhost') db.useEmulator('localhost', 9001);
+
 export const dbGet = ref =>
   db
     .ref(ref)

@@ -65,8 +65,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavBar = props => {
-  const { pages, name, modules } = props;
+const NavBar = ({ pages, name, modules, toggle, mobileOpen, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -81,7 +80,7 @@ const NavBar = props => {
         {Object.values(pages).map(
           page =>
             _get(modules, [page.target, 'enabled']) && (
-              <ListItem component={Link} to={page.path} button key={page.name}>
+              <ListItem component={Link} to={page.path} button key={page.name} onClick={toggle}>
                 <ListItemIcon color="#fff">
                   <NavIcon dark={theme.isBlack} name={page.target} />
                 </ListItemIcon>
@@ -98,7 +97,7 @@ const NavBar = props => {
       <CssBaseline />
       <AppBar position="fixed" color={theme.isBlack ? 'secondary' : 'primary'} className={classes.appBar}>
         <Toolbar>
-          <IconButton color="inherit" aria-label="Open drawer" onClick={props.toggle} className={classes.menuButton}>
+          <IconButton color="inherit" aria-label="Open drawer" onClick={toggle} className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
           <h2>{name}</h2>
@@ -109,8 +108,8 @@ const NavBar = props => {
           <Drawer
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={props.mobileOpen}
-            onClose={props.toggle}
+            open={mobileOpen}
+            onClose={toggle}
             classes={{ paper: classes.drawerPaper }}
             ModalProps={{ keepMounted: true }}
           >
@@ -121,18 +120,18 @@ const NavBar = props => {
           <Hidden xsDown implementation="css">
             <Drawer
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={props.mobileOpen}
-              onClose={props.toggle}
+              open={mobileOpen}
+              onClose={toggle}
               classes={{ paper: classes.drawerPaper }}
               ModalProps={{ keepMounted: true }}
-              variant={modules.navbar.desktop ? 'permanent' : 'temporary'}
+              variant={_get(modules, 'navbar.desktop') ? 'permanent' : 'temporary'}
             >
               {drawer}
             </Drawer>
           </Hidden>
         )}
       </nav>
-      <main className={classes.content}>{props.children}</main>
+      <main className={classes.content}>{children}</main>
     </div>
   );
 };
