@@ -58,17 +58,16 @@ const Controls = ({ target, isAdmin, child, ...props }) => {
         <Typography className={classes.typography} align="center" justify="center">
           {target}
         </Typography>
-        {!child && (
+        {child ? (
+          <IconButton onClick={toggleDialog} aria-label="Edit">
+            <Edit color="inherit" fontSize="small" />
+          </IconButton>
+        ) : (
           <Col sm={6} md={6} xs={6} lg={6}>
             <IconButton onClick={toggleDialog} aria-label="Add">
               <Add color="primary" fontSize="small" />
             </IconButton>
           </Col>
-        )}
-        {child && (
-          <IconButton onClick={toggleDialog} aria-label="Edit">
-            <Edit color="inherit" fontSize="small" />
-          </IconButton>
         )}
         <IconButton onClick={toggleDeleteDialog} aria-label="Delete">
           <Clear color="error" fontSize="small" />
