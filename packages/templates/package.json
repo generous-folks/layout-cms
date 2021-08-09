@@ -1,0 +1,33 @@
+{
+  "name": "@generous-folks/templates",
+  "version": "0.0.0",
+  "description": "Templates for layout cms",
+  "keywords": [
+    "templates",
+    "layout"
+  ],
+  "author": "Pierre Huyghe <pierrehuyghe.pro@gmail.com>",
+  "homepage": "https://github.com/generous-folks/layout-cms#readme",
+  "license": "MIT",
+  "main": "src/index.js",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/generous-folks/layout-cms.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/generous-folks/layout-cms/issues"
+  }
+}
