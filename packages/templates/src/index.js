@@ -1,3 +1,3 @@
 export const templates = () => {
-  return 'foo';
+  return 'bar';
 };
