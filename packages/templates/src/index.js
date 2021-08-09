@@ -1,1 +1,3 @@
-export const templates = () => {};
+export const templates = () => {
+  return 'foo';
+};
